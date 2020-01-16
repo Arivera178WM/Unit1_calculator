@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Seymour+One&display=swap');
+
+body{
+    background: white;
+    background: lightblue;
+    font-size: 40px;
+    font-family: 'Seymour One', sans-serif;
+}
+html{
+    height: 100%;
+
+}
+
+/* HEADER */
+
+.header{
+    text-align: center;
+    background-color: salmon;
+    color: lightpink;
+    border: pink solid 5px;
+    padding: 5px 0px;
+    margin: 10px 0px;
+
+}
+
+h1{
+    margin: 10px 0px; 
+    font-size: 40px;
+}
+
+/* CALCULATOR CONTAINER */
+
+#calculator{
+    width: 440px;
+    height: auto; 
+    margin: 30px auto; 
+    padding: 10px;
+    border-radius: 10px;
+    background-color: lightgoldenrodyellow;
+}
+
+/* DISPLAY CLEAR & DELETE KEYS */
+#display{ 
+    border: solid 2px lightsalmon; 
+    height: 45px; 
+    text-align: right;
+    float: none;
+    margin: 0 auto; 
+    background-color: lightgray;
+    border-radius: 7px;
+    color: black;
+}
+
+#clear, #delete, #squareRoot{
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+    border-radius: 40px;
+    background-color: lightsalmon;
+    color: rgb(46, 46, 46);
+}
+
+#clearDelete{ 
+    width: 100%; 
+
+}
+
+/* Number Rows */
+
+button{
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+    border-radius: 40px;
+    background-color: lightblue;
+    color: rgb(46, 46, 46);
+}
+button:hover{
+    background-color: lightsalmon;
+    color: rgb(46, 46, 46);
+}
+button.operator:hover, button#delete:hover, button#clear:hover, button#squareRoot:hover, button#oneoverx:hover{ 
+    background-color: lightblue;
+    color: rgb(46, 46, 46);
+}
+
+#operator, .operator{
+    background-color: salmon;
+    color: rgb(46, 46, 46);
+}
+.equal, #equal{ 
+    background-color: rgb(253, 92, 74);
+}
