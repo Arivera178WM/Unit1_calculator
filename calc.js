@@ -1,211 +1,147 @@
-// GLOBAL VARIABLES 
-
-var num1 = ""; //STORES THE FIRST NUMBER IN OUR MATH
-var num2 = ""; //STORES THE SECOND NUMBER IN OUR MATH
-var operator; //STORE THE NUMBER OF OUR VARIABLE
-var flag = false; //FALSE IF WE HAVENT USED AN OPERATOR YET
+//Global Variables
+var num1 = ""; //store the first number for maths
+var num2 = ""; //store the second number for maths
+var operator; //The Action Button (+,-,*,/)
+var flag = false; 
+var equalTo = false; 
 var display = document.getElementById("display");
-var equalTo = false; //FALSE IF WE HAVENT PRESSED THE EQUALS BUTTON
-var opString = ""; //OPSTRING
-
-// CALCULATOR
-
-// FUNCTION TO SET NUMBERS IN THE NUM1 AND NUM2 VARIABLES 
+//calcultor
+//Clears the numbers 
+//Makes the numnber you pressed to display
 function setValue(number){
-    //CLEARS THE DISPLAY IF WE ALREADY SOLVED A PROBLEM
-  if(equalTo === true){
-    clearButton();
-    }     
-    //IF WE HAVENT USED AN OPERATOR WE ADD THE NUMBER TO THE END OF NUM1
-    if(flag === false){
-        num1+= number;
+    if(equalTo === true){
+        clearButton();
+    }
+    if (flag === false){
+        num1 += number;
         display.innerHTML = num1;
-    }if(flag === true){
+    }
+    if(flag === true){
         num2 += number;
         display.innerHTML += number;
     }
-    //MAX NUMBERS REACHED  
-    if (num1.length > 10 || num2.length > 10){
-        display.innerHTML = "SYNTAX ERROR"
+    if(num1.length > 8 || num2.length > 8){
+        display.innerHTML="Max limit of digits reached";
+        alert("You can't have more than 8 numbers");
     }
-
-
 }
-//FUNCTION TO ADD OPERATORS
+//Clears the numbers stored in the variables "num 1" and "num 2"
+function clearButton(){
+    num1 = "";
+    num2 = "";
+    display.innerHTML = "";
+    equalTo = false;
+    flag = false;
+}
+//Detects what the operator tied to the button pressed is and displays what the corresponding simbol is.
 function setOperator(number){
-    operator = number; 
-   
-    flag = true; 
-    //A BUNCH OF IF'S AND IF ELSES TO PLACE THE CORRECT OPERATOR
-    if (operator === 4){
-        display.innerHTML += " / "
+    operator = number;
+    var opString = "";
+    flag = true;
+    if(operator === 4){
+        display.innerHTML += " / ";
         opString = " / ";
-
-    }else if (operator === 3){ 
-        display.innerHTML += " * "; 
-        opString = " * "; 
-    }else if (operator === 2){
-        display.innerHTML += " - " 
-        opString = " - "
-    }else if (operator === 1){
-        display.innerHTML += " + "
-        opString = " + "
-    }else if (operator == 5){ 
-        result = Math.sqrt(num1);
-        display.innerHTML = result
-    }else if (operator == 6){
-        result = Math.pow(num1, 2);
-        display.innerHTMK = result;
-    }else if (operator == 7){
-        result = 1 / num1;
-        display.innerHTML = result;
-        
+    }else if(operator === 3){
+        display.innerHTML += " * ";
+        opString = " * ";
+    }else if(operator === 2){
+        display.innerHTML += " - ";
+        opString = " - ";
+    }else{
+        display.innerHTML += " + ";
+        opString = " + ";
     }
-
-    //ONLY ALLOWS FOR 1 OPERATOR AT A TIME
     if(flag === true){
         display.innerHTML = num1 + opString;
     }
-    else{
-        num2 += number; 
-        display.innerHTML += number;
-    }
-    //IF WE PRESSED AN OPERATOR AND THERE IS NO NUM1, CLEAR EVERYTHING
     if(flag === true && num1 === ""){
         clearButton();
     }
-    //IF WE HAVE SOLVED THE PROBLEM, CLEAR EVERYTHING
     if(equalTo === true){
         clearButton();
     }
-
 }
-function clearButton(){
-    display.innerHTML = "";
-    num1 = "";
-    num2 = "";
-    flag = false; 
-    equalTo = false;
-}
-
-//FUNCTION TO SOLVE WITH MATH EQUATION
-
+//CHecks what operator its doing, grabs the num 1 and num 2 and performs the math based on the operator, whet it gets a
+//response, it rounds it 
 function equalClick(){
-    equalTo = true; 
-    num1 = parseFloat(num1); 
-    num2 = parseFloat(num2); 
+    equalTo = true;
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
     var result = "";
-    var roundedResult = "";
-
-    if (operator === 1){
-         result = num1 + num2;
-    }else if (operator == 2){
+    var roundedResult="";
+    if(operator === 1){
+        result = num1 + num2;
+    }else if(operator === 2){
         result = num1 - num2;
-    }else if (operator == 3){
+    }else if(operator === 3){
         result = num1 * num2;
-    }else if (operator ==4){
+    }else{
         result = num1 / num2;
-    }else if (operator == 5){ 
-        result = Math.sqrt(num1);
-        display.innerHTML = result;
-    }else if (operator == 6){
-        result = Math.pow(num1, 2);
-    }else if (operator == 7){
-        result = 1 / num1;
     }
-
-    roundedResult = result.toFixed(2);
+    roundedResult = result.toFixed(4);
     display.innerHTML = roundedResult;
-
-
-    if(roundedResult === "Infinity"){ 
-        display.innerHTML =  "You cannot devide by 0"
-    }
-    if(roundedResult === "NaN"){
-        display.innerHTML = "Invalid Caluclation"
+    if(roundedResult === "Infinity"){
+        display.innerHTML = "You cannot divide by zero";
+    }else if( roundedResult === "NaN"){
+        display.innerHTML = "invalid calculation";
     }
 }
-
-function backSpace(){
+//Checks what is in each Variable Num1 and Num2 and deletes the past action/num/operator
+function backspace(){
     var temp1 = "";
     var temp2 = "";
-
     if(equalTo === true){
         clearButton();
     }
-    if(flag == false){
+    if(flag === false){
         temp1 = num1.substring(0, num1.length-1);
         num1 = temp1;
         display.innerHTML = num1;
     }
     else if(flag === true){
-        display.innerHTML = num1; 
+        display.innerHTML = num1;
         flag = false;
     }
-   
-   if(num2 !== ""){
-temp2 = num2.substring(0, num2.length-1);
-    num2 = temp2;
-    flag = true; 
-    display.innerHTML = num1 + opString + num2;
+    if(num2 !== ""){
+        temp2 = num2.substring(0, num2.length-1);
+        num2 = temp2;
+        flag = true;
+        opSetString(operator);
+    }
 }
-}
+//Sets the decumal based on the number you are storing, adding a decimal place after the previously stored number
 function setDecimal(){
-    if(flag === false);
-    if(num1 === ""){
-        num1 = "0.";
-        display.innerHTML = num1;
-    }
-    if(num1.indexOf(".")=== -1){
-        num1 += ".";
-        display.innerHTML = num1;
+    if(flag === false){
+        if(num1 === ""){
+            num1="0."
+            display.innerHTML = num1;
+        }
+        if(num1.indexOf(".") === -1){
+            num1 += ".";
+            display.innerHTML = num1;
+        }
     }
     if(flag === true){
         if(num2 === ""){
-            num2 = "0.";
-            display.innerHTML = num2;
+            num2="0."
+            display.innerHTML += num2;
         }
-        if(num2.indexOf(".")=== -1){
+        if(num2.indexOf(".") === -1){
             num2 += ".";
-            display.innerHTML = num1 + opString + num2;
+            opSetString(operator);
         }
     }
 
-   } 
-   function setDecimal(){
-    if(flag === false){
-    if(num1 === ""){
-        num1 = "0.";
-        display.innerHTML = num1;
-    }
-    if(num1.indexOf(".")=== -1){
-        num1 += ".";
-        display.innerHTML = num1;
-    }
 }
-    if(flag === true){
-        if(num2 === ""){
-            num2 = "0.";
-            display.innerHTML = num2;
+//Displays what button you pressed, if pressed the +, displayes a + ect.
+function opSetString(op){
+        if(op === 1){
+            display.innerHTML = num1 + " + " + num2;
+        }else if(op === 2) {
+            display.innerHTML = num1 + " - " + num2;
+        }else if(op === 3){
+            display.innerHTML = num1 + " * " + num2;
+        }else{
+            display.innerHTML = num1 + " / " + num2;
         }
-        if(num2.indexOf(".")=== -1){
-            num2 += ".";
-            display.innerHTML = num1 + opString + num2;
-        }
-    }
 }
-function cEntry(){
-    if(flag === false){
-        display.innerHTML = "";
-        num1 = "";
-    }
-    else {
-        display.innerHTML = num1 + opString; 
-        num2 = "";
-    }
-}
- 
-
-
-
-
